@@ -14,6 +14,42 @@
         angular.module('app', [])
 
         .controller('FirstController', function() {
+            this.users = [{
+                name: 'Thomas',
+                email: 'thomas@ici.fr'
+            }, {
+                name: 'Bruno'
+            }, {
+                name: 'Nicolas',
+                email: 'nicolas@plop'
+            }, {
+                name: 'Lilian'
+            }, {
+                name: 'fvfdv',
+                email: 'nicolas@plop'
+            }, {
+                name: 'dfvdvfd'
+            }, {
+                name: 'Nicolfdvfdas',
+                email: 'nicolas@plop'
+            }, {
+                name: 'lll'
+            }, {
+                name: 'ggg',
+                email: 'nicolas@plop'
+            }, {
+                name: 'fff'
+            }, {
+                name: 'eee',
+                email: 'nicolas@plop'
+            }, {
+                name: 'kkk'
+            }, {
+                name: 'ooo',
+                email: 'nicolas@plop'
+            }, {
+                name: 'pppp'
+            }, ];
 
             this.open = 1;
             this.top = '100px';
@@ -28,7 +64,36 @@
                 this.left = Math.floor(Math.random() * 1000) + 'px';
 
             }
+
+            this.userShow = this.users;
+            this.limit = function(size) {
+                this.userShow = this.users.slice(0, size || this.users.length);
+            }
         })
+
+        .filter("reverse", function() {
+            return function(input) {
+                return input.split("").reverse().join("");
+            }
+        })
+
+        .filter("exclamation", function() {
+            return function(input = "", a = "!", b = 1) {
+                if (!input) return '';
+                return input + a.repeat(b);
+            }
+        })
+
+        .filter("noms", function() {
+            return function(input) {
+                if (!Array.isArray(input)) return;
+
+                return input.map(user => user.name).join(', ');
+
+            }
+        })
+
+
 
         ;
     </script>
@@ -40,8 +105,10 @@
         <div style="margin-top:1em">
             <div ng-controller="FirstController as firstController">
 
+                <!--bouton qui court-->
                 <button style="position:absolute;left:100px;top:100px" ng-style="{ left: firstController.left , top: firstController.top }" class="btn btn-success" data-ng-mouseover="firstController.move()"> Click me </button>
 
+                <!--bar de navigation-->
                 <ul class="nav nav-tabs">
                     <li role="presentation" ng-class="{active: firstController.open === 1}">
                         <a href ng-click="firstController.clickTab(1)">Un</a>
@@ -55,9 +122,46 @@
 
                 </ul>
 
+                <!--va chercher les fichers dans views et les affiche-->
                 <ng-include src="'views/templ' + firstController.open + '.html'"></ng-include>
 
+                {{ "Bonjour" | exclamation:undefined:4}}
+                <br> {{ "Bonjour" | exclamation:"?":6}}
+                <br> {{ "Bonjour" | exclamation:""}}
 
+                <!--affiche les noms de users-->
+                <br> {{ firstController.users | noms }}
+
+                <!--affiche dans un tableau les nom et emails des users-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href ng-click="sortBy = 'name'; reverse = !reverse">Nom</a>
+                            </th>
+                            <th>
+                                <a href ng-click="sortBy = 'email'; reverse = !reverse">Email</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in firstController.userShow | filter:query | orderBy:sortBy:reverse">
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-info" ng-click="firstController.limit(3)">Afficher 3 items</button>
+                                <button class="btn btn-info" ng-click="firstController.limit(5)">Afficher 5 items</button>
+                                <button class="btn btn-info" ng-click="firstController.limit()">Afficher tout</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <input type="text" ng-model="query" class="form-control">
 
             </div>
         </div>

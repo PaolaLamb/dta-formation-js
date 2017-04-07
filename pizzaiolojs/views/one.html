@@ -1,0 +1,30 @@
+<button style="position:absolute;left:100px;top:100px" ng-style="{ left: firstController.left , top: firstController.top }" class="btn btn-success" data-ng-mouseover="firstController.move()"> Click me </button>
+
+
+<ul class="nav nav-tabs">
+    <li role="presentation" ng-class="{active: firstController.open === 1}">
+        <a href ng-click="firstController.clickTab(1)">Un</a>
+    </li>
+    <li role="presentation" ng-class="{active: firstController.open === 2}">
+        <a href ng-click="firstController.clickTab(2)">Deux</a>
+    </li>
+    <li role="presentation" ng-class="{active: firstController.open === 3}">
+        <a href ng-click="firstController.clickTab(3)">Trois</a>
+    </li>
+</ul>
+
+
+<div ng-if="firstController.open === 1">
+    <h2>UN</h2>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, suscipit odio facilis, accusamus est assumenda praesentium quia numquam veritatis et velit quo corrupti, quaerat fugit hic quas. In, reprehenderit, architecto.
+</div>
+
+<div ng-if="firstController.open === 2">
+    <h2>DEUX</h2>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae placeat, voluptates qui est ducimus ullam earum quia aliquid, fuga alias quos saepe similique libero. Autem sed inventore soluta, quam nihil.
+</div>
+
+<div ng-if="firstController.open === 3">
+    <h2>TROIS</h2>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto at aperiam, ratione, facilis expedita aliquid, odio porro odit doloribus sunt nesciunt asperiores molestias atque quae consequatur voluptatibus, fugiat itaque.
+</div>

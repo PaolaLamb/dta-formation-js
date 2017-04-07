@@ -1,0 +1,108 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Regina",
+      "toppings": [
+        "Jambon",
+        "Mozzarella",
+        "Champignon"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "3 fromages",
+      "toppings": [
+        "Mozzarella",
+        "Chèvre",
+        "Bleu"
+      ]
+    },
+    {
+      "name": "Hawaii",
+      "toppings": [
+        "Ananas",
+        "Mozzarella",
+        "Jambon"
+      ],
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "4 saisons",
+      "toppings": [
+        "Artichaut",
+        "Mozzarella",
+        "Olive",
+        "Jambon",
+        "Champignon"
+      ]
+    },
+    {
+      "name": "Chèvre",
+      "toppings": [
+        "Chèvre",
+        "Miel",
+        "Noix"
+      ],
+      "id": 5
+    }
+  ],
+  "pizzas": [
+    {
+      "recipe": "4 saisons",
+      "toppings": [],
+      "id": 1
+    },
+    {
+      "recipe": "Chèvre",
+      "toppings": [],
+      "id": 2
+    },
+    {
+      "recipe": "Regina",
+      "toppings": [],
+      "id": 3
+    },
+    {
+      "recipe": "Chèvre",
+      "toppings": [],
+      "id": 4
+    },
+    {
+      "recipe": "4 saisons",
+      "toppings": [],
+      "id": 5
+    },
+    {
+      "recipe": "3 fromages",
+      "toppings": [],
+      "id": 6
+    },
+    {
+      "recipe": "3 fromages",
+      "toppings": [],
+      "id": 7
+    },
+    {
+      "recipe": "3 fromages",
+      "toppings": [],
+      "id": 8
+    },
+    {
+      "recipe": "4 saisons",
+      "toppings": [],
+      "id": 9
+    },
+    {
+      "recipe": "4 saisons",
+      "toppings": [],
+      "id": 10
+    },
+    {
+      "recipe": "4 saisons",
+      "toppings": [],
+      "id": 11
+    }
+  ]
+}

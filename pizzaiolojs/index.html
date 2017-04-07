@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DTA - AngularJS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+
+    <script>
+        angular.module('app', [])
+
+        .controller('FirstController', function() {
+
+            this.open = 1;
+            this.top = '100px';
+            this.left = '100px';
+
+            this.clickTab = function(tab) {
+                this.open = tab;
+            }
+
+            this.move = function() {
+                this.top = Math.floor(Math.random() * 1000) + 'px';
+                this.left = Math.floor(Math.random() * 1000) + 'px';
+
+            }
+        })
+
+        ;
+    </script>
+
+</head>
+
+<body ng-app="app">
+    <div class="container">
+        <div style="margin-top:1em">
+            <div ng-controller="FirstController as firstController">
+
+                <ng-include src="views/one.html"></ng-include>
+
+                <button style="position:absolute;left:100px;top:100px" ng-style="{ left: firstController.left , top: firstController.top }" class="btn btn-success" data-ng-mouseover="firstController.move()"> Click me </button>
+
+
+                <ul class="nav nav-tabs">
+                    <li role="presentation" ng-class="{active: firstController.open === 1}">
+                        <a href ng-click="firstController.clickTab(1)">Un</a>
+                    </li>
+                    <li role="presentation" ng-class="{active: firstController.open === 2}">
+                        <a href ng-click="firstController.clickTab(2)">Deux</a>
+                    </li>
+                    <li role="presentation" ng-class="{active: firstController.open === 3}">
+                        <a href ng-click="firstController.clickTab(3)">Trois</a>
+                    </li>
+                </ul>
+
+
+                <div ng-if="firstController.open === 1">
+                    <h2>UN</h2>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, suscipit odio facilis, accusamus est assumenda praesentium quia numquam veritatis et velit quo corrupti, quaerat fugit hic quas. In, reprehenderit, architecto.
+                </div>
+
+                <div ng-if="firstController.open === 2">
+                    <h2>DEUX</h2>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae placeat, voluptates qui est ducimus ullam earum quia aliquid, fuga alias quos saepe similique libero. Autem sed inventore soluta, quam nihil.
+                </div>
+
+                <div ng-if="firstController.open === 3">
+                    <h2>TROIS</h2>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto at aperiam, ratione, facilis expedita aliquid, odio porro odit doloribus sunt nesciunt asperiores molestias atque quae consequatur voluptatibus, fugiat itaque.
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

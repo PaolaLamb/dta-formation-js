@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DTA - AngularJS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+
+    <script>
+        angular.module('app', [])
+
+
+
+        .controller('FirstController', function() {
+            this.clickTab = function(tab) {
+                this.open = tab;
+            }
+
+            this.move = function() {
+                this.top = Math.floor(Math.random() * 800) + 'px';
+                this.left = Math.floor(Math.random() * 1000) + 'px';
+
+            }
+        })
+
+
+        .filter("exclamation", function() {
+            return function(input = "", a = "!", b = 1) {
+                if (!input) return '';
+                return input + a.repeat(b);
+            }
+        })
+
+
+        ;
+    </script>
+
+</head>
+
+<body ng-app="app">
+    <div class="container">
+        <div style="margin-top:1em;margin-bottom:100px">
+            <div ng-controller="FirstController as firstController">
+
+                <!--bouton qui court-->
+                <button style="position:absolute;left:100px;top:100px" ng-style="{ left: firstController.left , top: firstController.top }" class="btn btn-success" data-ng-mouseover="firstController.move()"> Click me </button>
+
+                <!--bar de navigation-->
+                <ul class="nav nav-tabs">
+                    <li role="presentation" ng-class="{active: firstController.open === 1}">
+                        <a href ng-click="firstController.clickTab(1)">Un</a>
+                    </li>
+                    <li role="presentation" ng-class="{active: firstController.open === 2}">
+                        <a href ng-click="firstController.clickTab(2)">Deux</a>
+                    </li>
+                    <li role="presentation" ng-class="{active: firstController.open === 3}">
+                        <a href ng-click="firstController.clickTab(3)">Trois</a>
+                    </li>
+
+                </ul>
+
+
+                <!--va chercher les fichers dans views et les affiche-->
+                <ng-include src="'views/templ' + firstController.open + '.html'"></ng-include>
+
+
+                <br><br>
+                <!--test du filtre exclamation -->
+                {{ "Bonjour" | exclamation:undefined:4}}
+                <br> {{ "Bonjour" | exclamation:"?":6}}
+                <br> {{ "Bonjour" | exclamation:""}}
+            </div>
+        </div>
+</body>
+
+</html>

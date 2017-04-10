@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DTA - AngularJS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+
+    <script>
+        angular.module('app', [])
+
+        .factory("UserService", function() {
+            let users = [{
+                id: 0,
+                name: 'azdazdazdzafezfgrg',
+                email: 'thordgezfezfezfefezmas@icifafa.fr'
+            }, {
+                id: 1,
+                name: 'Thomas',
+                email: 'thomas@ici.fr'
+            }, {
+                id: 2,
+                name: 'Bruno'
+            }, {
+                id: 3,
+                name: 'dzaj',
+                email: 'nicozadzadlas@plop'
+            }, {
+                id: 4,
+                name: 'Brunadzadazo'
+            }, {
+                id: 5,
+                name: 'Nicazdzadzadolas',
+                email: 'nicolas@plop'
+            }, {
+                id: 6,
+                name: 'Brundzadzadzadzao'
+            }, {
+                id: 7,
+                name: 'azdzdza',
+                email: 'nicolas@plop'
+            }];
+
+            return {
+                getUsers() {
+                    return users;
+                },
+
+                //fonction pour sauvegarder un nouvel user dans le tableau ou éditer un utilisateur lorsque editedUser n'est pas nul
+                saveUser(user) {
+                    if (user.id !== undefined) {
+                        // edit l'user si l'id est existant
+                        let userIndex = users.findIndex(u => u.id === user.id);
+                        users[userIndex] = user;
+
+                    } else {
+                        // créé un user
+                        users.push(angular.copy(user));
+                    }
+                }
+            }
+        })
+
+
+        .controller('FirstController', function(UserService) {
+            this.user = {
+                name: "",
+                email: ""
+            };
+
+            this.users = UserService.getUsers();
+
+            //fonction pour sauvegarder un nouvel user dans le tableau ou éditer un utilisateur lorsque editedUser n'est pas nul
+            this.saveUser = function(userForm) {
+                if (userForm.$valid) {
+                    UserService.saveUser(this.user);
+                    this.user = null;
+                }
+
+            }
+
+            //éditer l'user, création d'un user à éditer (editedUser)
+            this.edit = function(user) {
+                this.user = angular.copy(user);
+            }
+
+            //fonction pour afficher les noms dans le tableau
+            this.userShow = this.users;
+            this.limit = function(size) {
+                this.userShow = this.users.slice(0, size || this.users.length);
+            }
+        })
+
+        .filter("reverse", function() {
+            return function(input) {
+                return input.split("").reverse().join("");
+            }
+        })
+
+
+
+
+        ;
+    </script>
+</head>
+
+<body ng-app="app">
+    <div class="container">
+        <div style="margin-top:1em;margin-bottom:100px">
+            <div ng-controller="FirstController as firstController">
+
+                <!--affiche dans un tableau les informations des users-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href ng-click="sortBy = 'name'; reverse = !reverse">Nom</a>
+                            </th>
+                            <th>
+                                <a href ng-click="sortBy = 'email'; reverse = !reverse">Email</a>
+                            </th>
+                            <th>
+                                <a href ng-click="sortBy = 'bio'; reverse = !reverse">Bio</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in firstController.userShow | filter:query | orderBy:sortBy:reverse track by $index">
+                            <td ng-click="firstController.edit(user)">{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.bio }}</td>
+                        </tr>
+                    </tbody>
+                    <!--permet de trier lors des clics sur les colonnes-->
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-primary" ng-click="firstController.limit(3)">Afficher 3 items</button>
+                                <button class="btn btn-primary" ng-click="firstController.limit(5)">Afficher 5 items</button>
+                                <button class="btn btn-primary" ng-click="firstController.limit()">Afficher tout</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+                <!--exemple de formulaire-->
+                <form name="userForm" novalidate ng-submit="firstController.saveUser(userForm)">
+                    <div class="form-group" ng-class="{'has-error':userForm.name.$invalid && userForm.name.$touched}">
+                        <label for="name"> Nom : </label>
+                        <input type="text" name="name" ng-model="firstController.user.name" class="col-md-4 form-control" required>
+                        <p class="text text-danger" ng-if="userForm.name.$invalid && userForm.name.$touched"> Obligatoire </p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error':userForm.email.$error.email && userForm.email.$touched || userForm.email.$error.required && userForm.email.$touched}">
+                        <label for="email"> Email : </label>
+                        <input type="email" name="email" ng-model="firstController.user.email" class="col-md-4 form-control" required>
+                        <p class="text text-danger" ng-if="userForm.email.$error.email && userForm.email.$touched"> Email non-valide </p>
+                        <p class="text text-danger" ng-if="userForm.email.$error.required && userForm.email.$touched"> Obligatoire </p>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error':userForm.bio.$invalid && userForm.bio.$touched}">
+                        <label for="bio"> Bio : </label>
+                        <textarea type="text" name="bio" ng-model="firstController.user.bio" ng-minlength="10" class="col-md-4 form-control" class="form-control"> </textarea>
+                        <p class="text text-danger" ng-if="userForm.bio.$invalid && userForm.bio.$touched"> Trop court </p>
+                    </div>
+
+                    <button ng-disabled="userForm.$invalid" type="submit" class="btn btn-primary"> Enregistrer </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

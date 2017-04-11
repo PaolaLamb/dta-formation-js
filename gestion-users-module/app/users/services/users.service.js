@@ -1,12 +1,22 @@
 export class UsersService {
-    constructor($http, API_URL) {
+    constructor($http, API_URL, $q) {
         this.$http = $http;
         this.API_URL = API_URL;
+        this.$q = $q
     }
 
     getUsers() {
         return this.$http.get(this.API_URL)
             .then(response => response.data)
+    }
+
+
+    getUser(id) {
+        if (id) {
+            return this.$http.get(`${this.API_URL}/${id}`)
+                .then(response => response.data)
+        }
+        return this.$q.resolve({});
     }
 
     saveUser(user) {
@@ -22,5 +32,7 @@ export class UsersService {
         return this.$http.delete(`${this.API_URL}/${ user.id }`)
             .then(response => response.data);
     }
+
+
 
 }

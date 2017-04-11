@@ -7,26 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DTA - AngularJS</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <script src="bundle.js"></script>
+    <script src="/bundle.js"></script>
+
+    <base href="/">
+
 </head>
 
 <body ng-app="app">
-
     <div class="container">
-
         <div class="row" style="margin-top:1em">
 
-            <a href="#!/"> Home </a>
-            <a href="#!/users"> Users </a>
+            <a href="/play" class="btn btn-danger"> Start </a>
 
             <div ng-view></div>
 
         </div>
-
     </div>
-
 </body>
 
 </html>

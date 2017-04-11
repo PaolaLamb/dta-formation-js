@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Jean",
+      "email": "adfzaf@fe",
+      "bio": "arijzeopfkeflmesfesmlfarijzeopfkeflmesfesmlfarijzeopfkeflmesfesmlfarijzeopfkeflmesfesmlfarijzeopfkeflmesfesmlf"
+    },
+    {
+      "id": 3,
+      "name": "Kevin",
+      "email": "dzad@hrekg.fr"
+    },
+    {
+      "name": "Marie",
+      "id": 4,
+      "email": "befef@fzekokf"
+    },
+    {
+      "name": "Paulaze",
+      "email": "",
+      "id": 5
+    },
+    {
+      "name": "Paul",
+      "email": "adad@fafji",
+      "id": 6
+    },
+    {
+      "name": "zefez",
+      "id": 7
+    }
+  ]
+}

@@ -78,3 +78,39 @@
 </body>
 
 </html>
+
+
+<!--affiche dans un tableau les informations des users-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href ng-click="sortBy = 'name'; reverse = !reverse">Nom</a>
+                            </th>
+                            <th>
+                                <a href ng-click="sortBy = 'email'; reverse = !reverse">Email</a>
+                            </th>
+                            <th>
+                                <a href ng-click="sortBy = 'bio'; reverse = !reverse">Bio</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in firstController.userShow | filter:query | orderBy:sortBy:reverse track by $index">
+                            <td ng-click="firstController.edit(user)">{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.bio }}</td>
+                        </tr>
+                    </tbody>
+                    <!--permet de trier lors des clics sur les colonnes-->
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-primary" ng-click="firstController.limit(3)">Afficher 3 items</button>
+                                <button class="btn btn-primary" ng-click="firstController.limit(5)">Afficher 5 items</button>
+                                <button class="btn btn-primary" ng-click="firstController.limit()">Afficher tout</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>

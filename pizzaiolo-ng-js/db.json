@@ -1,7 +1,18 @@
 {
-    "users": [
-        { "id": 1, "name": "Jean", "email": "" },
-        { "id": 3, "name": "Kevin", "email": "" },
-        { "id": 20, "name": "Pierre", "email": "" }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "name": "Jean",
+      "email": ""
+    },
+    {
+      "id": 3,
+      "name": "Kevinzadaz",
+      "email": "dzad@hrekg.fr"
+    },
+    {
+      "name": "azd",
+      "id": 4
+    }
+  ]
 }

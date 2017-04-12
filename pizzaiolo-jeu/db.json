@@ -1,19 +1,51 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+    "recipes": [{
+            "id": 1,
+            "name": "Regina",
+            "toppings": [
+                "Jambon",
+                "Mozzarella",
+                "Champignon"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "3 fromages",
+            "toppings": [
+                "Mozzarella",
+                "Chèvre",
+                "Bleu"
+            ]
+        },
+        {
+            "name": "Hawaii",
+            "toppings": [
+                "Ananas",
+                "Mozzarella",
+                "Jambon"
+            ],
+            "id": 3
+        },
+        {
+            "id": 4,
+            "name": "4 saisons",
+            "toppings": [
+                "Artichaut",
+                "Mozzarella",
+                "Olive",
+                "Jambon",
+                "Champignon"
+            ]
+        },
+        {
+            "name": "Chèvre",
+            "toppings": [
+                "Chèvre",
+                "Miel",
+                "Noix"
+            ],
+            "id": 5
+        }
+    ]
+
 }

@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-xs-12  col-sm-7  col-md-6  col-lg-5">
+        <div class="jumbotron">
+            <h2> {{ctrl.recipe.name}} Pizza Toppings </h2>
+            <br>
+            <ul ng-repeat="topping in ctrl.recipe.toppings" class="list-group">
+                <li class="list-group-item"> {{topping}} </li>
+            </ul>
+            <a href="/play" class="btn btn-primary"> Retour </a>
+        </div>
+    </div>
+</div>

@@ -13,14 +13,29 @@
 
     <base href="/">
 
+    <style>
+        div.jumbotron {
+            background: aliceblue;
+            text-align: center;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+
+
+
 </head>
 
 <body ng-app="app">
     <div class="container">
         <div class="row" style="margin-top:1em">
-
-            <a href="/play" class="btn btn-danger"> Start </a>
-
+            <super-paragraphe-directive title="bonjour"> coucou je suis là aussi </super-paragraphe-directive>
             <div ng-view></div>
 
         </div>

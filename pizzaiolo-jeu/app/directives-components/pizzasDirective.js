@@ -13,7 +13,7 @@ export function PizzasDirective() {
         template: `
         <ul class="list-group" ng-repeat="pizza in ctrl.pizzas track by $index">
             <button type="button" class="list-group-item" ng-click="ctrl.getPizza(pizza)">
-                <a href="javascript:history.go(-1)" type="btn" >
+                <a href="/recipe/{{pizza.id}}" type="btn" >
                     <span class="badge">?</span>
                 </a>
                 {{ pizza.recipe }} 

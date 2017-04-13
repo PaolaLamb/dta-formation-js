@@ -1,0 +1,13 @@
+<div class="col-xs-12  col-sm-12  col-md-12  col-lg-12">
+    <h2> Les Gentils </h2>
+    <dta-fighter ng-repeat="fighter in $ctrl.team1.fighters track by $index" on-fight="$ctrl.setDamages($event)" mode="$ctrl.team1.mode" email="fighter" damages="$ctrl.damages" after-injured="$ctrl.attackEnd()"></dta-fighter>
+</div>
+
+
+<div class="battlefield col-xs-12  col-sm-12  col-md-12  col-lg-12"></div>
+
+
+<div class="col-xs-12  col-sm-12  col-md-12  col-lg-12">
+    <h2> Les Méchants (pour de faux) </h2>
+    <dta-fighter ng-repeat="fighter in $ctrl.team2.fighters track by $index" on-fight="$ctrl.setDamages($event)" mode="$ctrl.team2.mode" email="fighter" damages="$ctrl.damages" after-injured="$ctrl.attackEnd()"></dta-fighter>
+</div>

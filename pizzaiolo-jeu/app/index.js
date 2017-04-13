@@ -4,8 +4,9 @@ import ngRoute from "angular-route";
 
 import { RecipeModule } from "./recipes";
 import { PlayModule } from "./play";
-import { PizzasDirective } from "./directives/pizzasDirective";
-import { ToppingsDirective } from "./directives/toppingsDirective";
+//import { PizzasDirective } from "./directives-components/pizzasDirective";
+import { ToppingsDirective } from "./directives-components/toppingsDirective";
+import { PizzasComponent } from "./directives-components/pizzasComponent";
 
 angular.module("app", [
     ngRoute,
@@ -40,8 +41,7 @@ angular.module("app", [
     console.log("home ctrl")
 })
 
-
-.directive("pizzasDirective", PizzasDirective)
+.component("pizzasComponent", PizzasComponent)
 
 .directive("toppingsDirective", ToppingsDirective)
 

@@ -1,0 +1,19 @@
+<div class="fighter">
+    <div class="col-xs-12  col-sm-12  col-md-12  col-lg-12 ">
+        <img ng-src="https://www.gravatar.com/avatar/{{ $ctrl.md5 }}" alt="{{ $ctrl.email }}" ng-class="{opacity: $ctrl.life === 0}">
+    </div>
+
+    <div class="col-xs-10  col-sm-10  col-md-10  col-lg-12 ">
+        <span class="glyphicon glyphicon-heart"></span> {{ $ctrl.life }}/{{ $ctrl.maxLife }}
+        <span class="glyphicon glyphicon-tint"></span>{{ $ctrl.mana }}/{{ $ctrl.maxMana}}
+    </div>
+
+    <div class="col-xs-10  col-sm-10  col-md-10  col-lg-12 ">
+        <span class="glyphicon glyphicon-flash"></span> {{ $ctrl.attack }}
+    </div>
+
+    <div class="col-xs-12  col-sm-12  col-md-12  col-lg-12 ">
+        <button ng-if="$ctrl.mode === 'mechants'" ng-disabled="$ctrl.life === 0" ng-click="$ctrl.fight()" class="btn btn-danger" type="button">Fight <span class="glyphicon glyphicon-cutlery"></span> </button>
+        <button ng-if="$ctrl.mode === 'gentils'" ng-disabled="$ctrl.life === 0" ng-click="$ctrl.suffer()" class="btn btn-warning" type="button">Target <span class="glyphicon glyphicon-alert"></span> </button>
+    </div>
+</div>

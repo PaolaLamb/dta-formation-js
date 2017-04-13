@@ -12,11 +12,11 @@ class controller {
             fighters: ['gigarelt@gmail.com', 'tmoyse@gmail.com', 'renard.cyrille@gmail.com', 'alouest_44@yahoo.fr']
         };
         this.damages = 0;
+        this.targets = ['gigarelt@gmail.com', 'tmoyse@gmail.com', 'renard.cyrille@gmail.com', 'alouest_44@yahoo.fr']
 
     }
 
     setDamages(damages) {
-        console.log("ici")
         this.damages = damages;
     }
 
@@ -24,6 +24,10 @@ class controller {
         this.damages = 0;
         this.team1.mode = this.team1.mode === 'gentils' ? 'mechants' : 'gentils';
         this.team2.mode = this.team2.mode === 'gentils' ? 'mechants' : 'gentils';
+    }
+
+    spellDamages() {
+
     }
 
 

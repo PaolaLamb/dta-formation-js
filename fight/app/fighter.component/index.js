@@ -13,6 +13,7 @@ class controller {
         this.mana = 5 + Math.floor(Math.random() * 10);
         this.maxMana = this.mana;
     }
+
     fight() {
         this.onFight({
             $event: this.attack
@@ -24,6 +25,14 @@ class controller {
         this.afterInjured({});
     }
 
+    castingSpell() {
+        this.mana -= Math.floor(Math.random() * 4) + 1;
+        this.fireSpell({
+            $event: 5 + Math.floor(Math.random() * 10)
+        });
+    }
+
+
 
 }
 
@@ -34,6 +43,7 @@ export const FighterComponent = {
         damages: '<',
         mode: '<',
         afterInjured: '&',
+        fireSpell: "&"
     },
     template,
     controller,

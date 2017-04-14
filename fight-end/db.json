@@ -1,19 +1,28 @@
 {
-  "posts": [
+  "teams": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "json-server",
+      "fighters": [
+        {
+          "name": "",
+          "class": "tank",
+          "email": "test@fd.fr"
+        },
+        {
+          "name": "",
+          "class": "healer",
+          "email": "fdsf@ffh.fr"
+        },
+        {
+          "email": "dfdsf@dfd.fr",
+          "class": "dps"
+        },
+        {
+          "email": "azea@fpos.fr",
+          "class": "dps"
+        }
+      ]
     }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

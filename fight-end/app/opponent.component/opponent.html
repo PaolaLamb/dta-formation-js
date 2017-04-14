@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-md-6" ng-if="!$ctrl.PeerService.conn">
+            <input type="text" ng-model="$ctrl.PeerService.opponentPeerId">
+            <button type="button" ng-click="$ctrl.connect()">connect</button>
+            Mon ID : {{ $ctrl.PeerService.peerId }}
+
+        </div>
+        <div class="col-md-6">
+            <a type="button"
+                href="/baston">Launch baston !</a>
+        </div>
+</div>

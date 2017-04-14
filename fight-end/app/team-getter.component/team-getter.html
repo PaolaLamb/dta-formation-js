@@ -1,0 +1,26 @@
+<div class="well">
+    <form class="form-horizontal" novalidate ng-submit="$ctrl.save(teamForm)" name="teamForm">
+        <div class="form-group" ng-class="{'has-error': teamForm.name.$invalid}">
+            <label 
+            for="team" 
+            class="col-sm-2 control-label">Nom de la team</label>
+            <div class="col-sm-10">
+            <input type="text" 
+                class="form-control" 
+                id="team" 
+                name="team" 
+                placeholder="Nom de la team" 
+                ng-model="$ctrl.name">
+                <p class="text-danger" ng-if="teamForm.name.$invalid">
+                    Obligatoire
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Fight !</button>
+            </div>
+        </div>
+    </form>
+
+</div>

@@ -1,49 +1,24 @@
 import { random } from 'lodash';
 
 export class FightService {
-    constructor() {
-        window.f = this;
-        this.teams = [{
-                name: 'ByteClub',
-                fighters: [{
-                        email: 'tmoyse@gmail.com',
-                        class: "healer",
-                        life: 10,
-                        mana: 10,
-                        attack: [3, 5],
-                    },
-                    {
-                        email: 'delapouite@gmail.com',
-                        class: "tank",
-                        life: 10,
-                        mana: 10,
-                        attack: [3, 5],
-                    },
-                    {
-                        email: 'naholyr@gmail.com',
-                        class: "dps",
-                        life: 10,
-                        mana: 10,
-                        attack: [3, 5],
-                    }
-                ]
-            },
-            {
-                name: 'P. de code',
-                fighters: [{
-                    email: 'finalboss@esn.fr',
-                    class: "boss",
-                    life: 100,
-                    mana: 0,
-                    attack: [1, 8],
-                }]
-            },
-        ];
-
+    constructor (PeerService, $rootScope) {
+        this.PeerService = PeerService;
+        this.$rootScope = $rootScope;
+        
+        this.classes = ['healer', 'tank', 'dps'];
+        this.teams = [];
+        
         this.round = 0;
         this.waitingForTarget = false;
-        this.generateStats();
-        this.nextRound();
+        //this.nextRound();
+    }
+
+    setFirstTeam(team){
+        this.teams[0] = team;
+    }
+
+    setSecondTeam(team){
+        this.teams[1] = team;
     }
 
     nextRound() {
@@ -52,7 +27,26 @@ export class FightService {
         this.attackers = this.getFighters().map(f => f.email);
         this.opponentTank = this.tank;
         this.tank = null;
+        if (this.round % 2 === 1) {
+            this.autoPlay();
+        }   
+        if (this.PeerService.conn) {
+            this.PeerService.send({
+                type: "gameState",
+                teams: this.teams,
+                round: this.round,
+                attackers: this.attackers
+            });
+        }  
     }
+
+    onDataReceived(data) {
+        this.$rootScope.$apply(() => {
+            this.teams = data.teams;
+            this.round = data.round;
+            this.attackers = data.attackers;
+        });
+    }    
 
     getDamage(email) {
         const fighter = this.getFighter(email);
@@ -82,7 +76,7 @@ export class FightService {
     }
 
     agro(fighter) {
-        if (fighter.mana < 2) return;
+        if (fighter.mana < 5) return;
         fighter.mana -= 5;
         this.tank = fighter.email;
         this.resolveAttack([]);
@@ -104,6 +98,8 @@ export class FightService {
             targets.forEach(email => {
                 let fighter = this.getFighter(email, 1);
                 fighter.life = Math.max(fighter.life - damages, 0);
+                if(fighter.email === this.opponentTank && fighter.life === 0)
+                    this.opponentTank = null;
             });
             this.waitingForTarget = false;
             if (this.attackers.length === 0) this.nextRound();
@@ -145,15 +141,90 @@ export class FightService {
                     let attackD = Math.floor(Math.random() * 10) + 15;
                     fighter.attack = [Math.floor(attackD * 0.75), Math.floor(attackD * 1.25)];
                     break;
-                default:
-                    fighter.maxLife = fighter.life;
-                    fighter.maxMana = 10;
+                case "boss":
+                    fighter.maxLife = Math.floor(Math.random() * 5) + 200;
+                    fighter.life = fighter.maxLife;
+                    fighter.maxMana = Math.floor(Math.random() * 15) + 150;
+                    fighter.mana = fighter.maxMana;
+                    let attackB = Math.floor(Math.random() * 10) + 5;
+                    fighter.attack = [Math.floor(attackB * 0.75), Math.floor(attackB * 1.25)];
+                    break;
             }
         }));
     }
 
+    getOpponentTank(){
+        return this.getFighter(this.opponentTank, 1);
+    }
 
+    getRandomFighter() {
+        if (this.opponentTank){
+            return getOpponentTank();
+        }
+        let opponents = this.getFighters(1);
+        return opponents[Math.floor(Math.random() * opponents.length)];
+    }
 
+    getWeakestFighter(){
+        if (this.opponentTank){
+            return getOpponentTank();
+        }
+        return this.getFighters(1).reduce((acc, fighter) => {
+                    return (fighter.life < acc.life) ? fighter : acc;
+                }, { life: 100 })
+    }
 
+    attackFighter(boss, isRandom) {
+        if (boss.mana >= 5) {
+            console.log('BOOM !!');
+            this.globalAttack(boss);
+        }
+        else {
+            console.log('Prends ça !');
+            if (isRandom) {
+                this.resolveAttack([this.getRandomFighter().email]);
+            }
+            else {
+                this.resolveAttack([this.getWeakestFighter().email]);
+            }
+        }
+    }
 
+    nuageToxique(boss, damage) {
+        if (!this.thresholds)
+            this.thresholds = [0.75, 0.5, 0.25].map(a => a * boss.maxLife);
+        if (this.thresholds.length > 0 && boss.life <= this.thresholds[0]) {
+            this.getFighters(1).map(fighter => fighter.life = Math.max( fighter.life - damage, 0));
+            console.log('Nuage toxique !');
+            this.thresholds.shift();
+        }
+    }
+
+    autoAction(boss) {
+        if (boss.life > 0.75 * boss.maxLife) {
+            console.log('Prends ça !')
+            this.resolveAttack([this.getRandomFighter().email]);
+        }
+        else if (boss.life > 0.5 * boss.maxLife) {
+            boss.attack = [2, 5];
+            this.nuageToxique(boss, 1);
+            this.attackFighter(boss, true);
+        }
+        else if (boss.life > 0.25 * boss.maxLife) {
+            boss.attack = [2, 6];
+            this.nuageToxique(boss, 2);
+            this.attackFighter(boss, false);
+        }
+        else {
+            boss.attack = [3, 7];
+            this.nuageToxique(boss, 3);
+            this.attackFighter(boss, false);
+        }
+    }
+    
+    autoPlay() {
+            while(this.attackers.length > 0 && this.round % 2 === 1){
+                this.autoAction(this.getFighter(this.attackers[0]))
+            };
+        }
 }

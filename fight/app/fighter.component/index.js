@@ -10,13 +10,21 @@ class controller {
         this.life = 20 + Math.floor(Math.random() * 30);
         this.maxLife = this.life;
         this.attack = 5 + Math.floor(Math.random() * 10);
-        this.mana = 5 + Math.floor(Math.random() * 10);
+        this.mana = Math.floor(Math.random() * 10);
         this.maxMana = this.mana;
     }
 
-    fight() {
+    $onChanges(changes) {
+        if (this.targets) {
+            this.suffer();
+        }
+    }
+
+    fight(zone) {
+        if (zone) this.mana -= 5;
         this.onFight({
-            $event: this.attack
+            $event: this.attack,
+            zone
         });
     }
 
@@ -24,15 +32,6 @@ class controller {
         this.life = Math.max(this.life - this.damages, 0);
         this.afterInjured({});
     }
-
-    castingSpell() {
-        this.mana -= Math.floor(Math.random() * 4) + 1;
-        this.fireSpell({
-            $event: 5 + Math.floor(Math.random() * 10)
-        });
-    }
-
-
 
 }
 

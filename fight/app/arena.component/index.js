@@ -12,12 +12,16 @@ class controller {
             fighters: ['gigarelt@gmail.com', 'tmoyse@gmail.com', 'renard.cyrille@gmail.com', 'alouest_44@yahoo.fr']
         };
         this.damages = 0;
-        this.targets = ['gigarelt@gmail.com', 'tmoyse@gmail.com', 'renard.cyrille@gmail.com', 'alouest_44@yahoo.fr']
+
 
     }
 
     setDamages(damages) {
+        this.targets = [];
         this.damages = damages;
+        if (attack.zone) {
+            this.targets = this.team2.fighters.map(fi => fi.email)
+        }
     }
 
     attackEnd() {

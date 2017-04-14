@@ -25,6 +25,9 @@ class controller {
                 case "dps":
                     this.FightService.globalAttack(this.fighter);
                     break;
+                default:
+                    this.FightService.globalAttack(this.fighter);
+                    break;
             }
         }
     }

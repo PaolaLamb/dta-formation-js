@@ -23,13 +23,16 @@
                 <img src="/img/pointy-sword.svg">
             </button>
             <button ng-disabled="!$ctrl.active() || $ctrl.noMana()" ng-if="$ctrl.fighter.class==='dps'" ng-click="$ctrl.fight(true)" class="btn btn-primary" type="button">
-                <img src="/img/heavy-lightning.svg">
+                <img src="/img/crossed-slashes.svg">
             </button>
             <button ng-disabled="!$ctrl.active() || $ctrl.noMana()" ng-if="$ctrl.fighter.class==='healer'" ng-click=" $ctrl.fight(true) " class="btn btn-primary " type="button ">
                 <img src="/img/heart-bottle.svg">
             </button>
             <button ng-disabled="!$ctrl.active() || $ctrl.noMana()" ng-if="$ctrl.fighter.class==='tank'" ng-click=" $ctrl.fight(true) " class="btn btn-primary " type="button ">
                  <img src="/img/arrows-shield.svg">
+            </button>
+            <button ng-disabled="!$ctrl.active() || $ctrl.noMana()" ng-if="$ctrl.fighter.class==='boss'" ng-click="$ctrl.fight(true)" class="btn btn-primary" type="button">
+                <img src="/img/heavy-lightning.svg">
             </button>
         </div>
 

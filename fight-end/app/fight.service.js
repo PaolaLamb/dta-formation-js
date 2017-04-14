@@ -82,7 +82,7 @@ export class FightService {
     }
 
     agro(fighter) {
-        if (fighter.mana < 5) return;
+        if (fighter.mana < 2) return;
         fighter.mana -= 5;
         this.tank = fighter.email;
         this.resolveAttack([]);
@@ -132,7 +132,7 @@ export class FightService {
                 case "tank":
                     fighter.maxLife = Math.floor(Math.random() * 50) + 50;
                     fighter.life = fighter.maxLife;
-                    fighter.maxMana = Math.floor(Math.random() * 10) + 5;
+                    fighter.maxMana = Math.floor(Math.random() * 5) + 5;
                     fighter.mana = fighter.maxMana;
                     let attackT = Math.floor(Math.random() * 5) + 10;
                     fighter.attack = [Math.floor(attackT * 0.75), Math.floor(attackT * 1.25)];
